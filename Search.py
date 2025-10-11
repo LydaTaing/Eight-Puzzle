@@ -1,4 +1,4 @@
-
+import time
 from queue import PriorityQueue
 from Node import Node
 import math
@@ -61,6 +61,7 @@ class Problem:
 
     #Performs the uniform cost search on puzzle
     def UniCostSearch(self):
+        start_time = time.perf_counter()
         #create the first node and variables to keep track of stats
         current = Node(self.initialState)
         nodesNum = 1
@@ -69,11 +70,16 @@ class Problem:
         #user message of expanding
         print("Expanding state")
         self.printPuzzle(current.state)
-        print() #amshu - not sure if additional empty line is needed or not
+        print()
         #check if inital state is the goal state
         if current.state == self.goalState:
             self.nodesSearched = nodesNum
             self.printGoalMes()
+            # --- END TIME MEASUREMENT AND PRINT ---
+            end_time = time.perf_counter()
+            elapsed_time = end_time - start_time
+            print(f"Time elapsed for Uniform Cost Search: {elapsed_time:.4f} seconds.")
+            # --------------------------------------
             return
         #count is used as measure for priority Queue
         item = (current.gn, count, current)
@@ -97,6 +103,11 @@ class Problem:
                 self.findSolutionPath(current)
                 self.printGoalMes()
                 self.PrintSolutionPath()
+                # --- END TIME MEASUREMENT AND PRINT ---
+                end_time = time.perf_counter()
+                elapsed_time = end_time - start_time
+                print(f"Time elapsed for Uniform Cost Search: {elapsed_time:.4f} seconds.")
+                # --------------------------------------
                 return
             print("The best state to expand with g(n) = " + str(current.gn) + " is ...")
             self.printPuzzle(current.state)
@@ -118,6 +129,9 @@ class Problem:
             
         
     def AStarSearch(self, heuristic):
+        # --- START TIME MEASUREMENT ---
+        start_time = time.perf_counter()
+        # ------------------------------
         #initialize variable 
         current = Node(self.initialState)
         nodeNum =1 
@@ -132,6 +146,12 @@ class Problem:
         if current.state == self.goalState:
             self.nodesSearched = nodeNum
             self.printGoalMes()
+            # --- END TIME MEASUREMENT AND PRINT ---
+            end_time = time.perf_counter()
+            elapsed_time = end_time - start_time
+            search_name = "Misplaced Tile" if heuristic.__name__ == "numberMisplacedTile" else "Euclidean Distance"
+            print(f"Time elapsed for A* ({search_name}): {elapsed_time:.4f} seconds.")
+            # --------------------------------------
             return
 
         #calculate f(n)=g(n)+h(n)
@@ -169,6 +189,12 @@ class Problem:
                 self.findSolutionPath(current)
                 self.printGoalMes()
                 self.PrintSolutionPath()
+                # --- END TIME MEASUREMENT AND PRINT ---
+                end_time = time.perf_counter()
+                elapsed_time = end_time - start_time
+                search_name = "Misplaced Tile" if heuristic.__name__ == "numberMisplacedTile" else "Euclidean Distance"
+                print(f"Time elapsed for A* ({search_name}): {elapsed_time:.4f} seconds.")
+                # --------------------------------------
                 return
 
             # all possible next moves
@@ -181,6 +207,7 @@ class Problem:
                     node.parent = current
                     hn = heuristic(node.state, self.goalState)
                     fn = node.gn + hn
+                    
                     item = (fn, count, node)
                     self.que.put(item)
 
