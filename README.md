@@ -9,6 +9,7 @@ This project demonstrate the use of Search algorithm to sovle 8 puzzle by using 
 
 ## Tool and Technologies: 
 * Python - terminal base interface
+* In terminal, run the program with python main.py
 
 ## Initial Plan
 We are going to use tree class and node class to make each state. Each node can have upto 4 children and are limited by the moves which we can define by checking the limits first. 
