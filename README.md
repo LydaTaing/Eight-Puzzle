@@ -24,4 +24,5 @@ Used Defualt Puzzle, to measure the estimate different search algorithm.
 * Uniform Cost Search : 0.0208 seconds.
 * A* with the Misplaced Tile heuristic: 0.0042 seconds.
 * A* with the Euclidean Distance heuristic: 0.0045 seconds.
+
 From the USC to A*, it improves run time by 78%. 
